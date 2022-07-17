@@ -1,0 +1,6 @@
+tensorflow==2.6.0
+keras==2.6.0
+torch==1.9.0+cu111
+fastapi==0.78.0
+gemsim==3.8.1
+jieba==0.42.1
