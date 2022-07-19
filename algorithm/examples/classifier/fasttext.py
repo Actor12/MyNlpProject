@@ -53,17 +53,17 @@ def train_model(ipt=None, opt=None, model='', dim=100, epoch=100, lr=0.1, loss='
     return classifier
 
 
-def unified_format(data_lable, predict_lable):  # 多余
-    lable_to_cate = {'萌宠': 0, '园艺': 1, '运动_户外': 2, '星座': 3, '影视': 4, '摄影': 5, '穿搭': 6, '游戏': 7, '数码_科技': 8, '家居': 9,
+def unified_format(data_label, predict_label):  # 多余
+    label_to_cate = {'萌宠': 0, '园艺': 1, '运动_户外': 2, '星座': 3, '影视': 4, '摄影': 5, '穿搭': 6, '游戏': 7, '数码_科技': 8, '家居': 9,
                      '汽车': 10,
                      '户外旅游': 11, '美食': 12, '母婴': 13, '美容妆发': 14, '二次元_动漫': 15}
 
     list_uni = []
     list_pre = []
 
-    for i, y in zip(iter(data_lable), iter(predict_lable)):
-        unified = [lable_to_cate[i.split('__label__')[-1]] for node_i in lable_to_cate.keys() if node_i in i]
-        predict = [lable_to_cate[y[0].split('__label__')[-1]] for node_i in lable_to_cate.keys() if node_i in y[0]]
+    for i, y in zip(iter(data_label), iter(predict_label)):
+        unified = [label_to_cate[i.split('__label__')[-1]] for node_i in label_to_cate.keys() if node_i in i]
+        predict = [label_to_cate[y[0].split('__label__')[-1]] for node_i in label_to_cate.keys() if node_i in y[0]]
         list_pre.append(predict)
         list_uni.append(unified)
 
@@ -125,12 +125,12 @@ if __name__ == '__main__':
     data_words = [i.replace('\n', '').split('\t')[-1] for i in
                   open('./dataset/val_label_sim.txt', 'r', encoding='utf-8')]
 
-    data_lable = [i.replace('\n', '').replace('"', '').split('\t')[0] for i in
+    data_label = [i.replace('\n', '').replace('"', '').split('\t')[0] for i in
                   open('./dataset/val_label_sim.txt', 'r', encoding='utf-8')]
-    predict_lable = classifier.predict(data_words)[0]
+    predict_label = classifier.predict(data_words)[0]
 
     # 进行数据的编码
-    list_uni, list_pre = unified_format(data_lable, predict_lable)
+    list_uni, list_pre = unified_format(data_label, predict_label)
 
     # 降低维度
     list_pre = [i[0] for i in list_pre]
@@ -176,5 +176,5 @@ if __name__ == '__main__':
     stopwordsFile = r"./data/stopwords.txt"
     stopwords = get_stop_words(stopwordsFile)
     sentence = preprocess_lcut(test_demo, stopwords)
-    predict_lable = classifier.predict(sentence)
-    print(predict_lable)
+    predict_label = classifier.predict(sentence)
+    print(predict_label)
