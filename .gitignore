@@ -1,5 +1,5 @@
 # ignore data files
 /algorithm/data
 
-#
-/.idea/
+#ignore .idea
+.idea
